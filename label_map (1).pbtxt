@@ -1,0 +1,29 @@
+item {
+    id: 1
+    name: 'deer'
+}
+
+item {
+    id: 2
+    name: 'antlers'
+}
+
+item {
+    id: 3
+    name: 'person'
+}
+
+item {
+    id: 4
+    name: 'rub'
+}
+
+item {
+    id: 5
+    name: 'droppings'
+}
+
+item {
+    id: 6
+    name: 'tracks'
+}
