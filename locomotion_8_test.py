@@ -192,43 +192,43 @@ def Locomotion(LOS,iterations,return_angle):
 
     def check_kill():
         if not queue.empty():
-                    print("monitor has recognized that queue is populated")
-                    if queue.get() == 1:
-                        print("kill signal received from TATM")
-                        print("Potential target at: %s"%vehicle.location.global_relative_frame)
-                        decelerate()
-                        lat1=vehicle.location.global_relative_frame.lat
-                        lon1=vehicle.location.global_relative_frame.lon
-                        alt1=vehicle.location.global_relative_frame.alt
-                        print("Standing by for input; (0) to confirm (1) to deny then (Enter):")
-                        while queue_confirm.empty():
-                            loiter(lat1,lon1,alt1)
-                            time.sleep(0.5)
-                        if queue_confirm.get()==1:
-                            print("Target confirmed, landing in close proximity.")
-                            angle=about_face(vehicle.heading)
-                            condition_yaw(180,1,angle)
-                            for i in range (10):
-                                send_local_ned_velocity(velocity/2,0,0)
-                                time.sleep(1)
-                            decelerate()
-                            vehicle.mode = VehicleMode('LAND')
-                            while vehicle.mode != 'LAND':
-                                print("Pathfinder waiting to engage landing mode, Mode: %s"%vehicle.mode)
-                                time.sleep(1)
-                            while vehicle.location.global_relative_frame.alt>0.1:
-                                print("Landing...")
-                                time.sleep(2)
-                            print("Pathfinder has landed at: %s"%vehicle.location.global_relative_frame)
-                            vehicle.close()
-                            sys.exit()
-                        elif queue_confirm.get()==0:
-                            print("you have denied that this is a target")
-                            vehicle.mode=VehicleMode('GUIDED')
-                            while vehicle.mode != 'GUIDED':
-                                print(vehicle.mode)
-                                time.sleep(2)
-                        print("continuing with mission")
+            print("monitor has recognized that queue is populated")
+            if queue.get() == 1:
+                print("kill signal received from TATM")
+                print("Potential target at: %s"%vehicle.location.global_relative_frame)
+                decelerate()
+                lat1=vehicle.location.global_relative_frame.lat
+                lon1=vehicle.location.global_relative_frame.lon
+                alt1=vehicle.location.global_relative_frame.alt
+                print("Standing by for input; (0) to confirm (1) to deny then (Enter):")
+                while queue_confirm.empty():
+                    loiter(lat1,lon1,alt1)
+                    time.sleep(0.5)
+                if queue_confirm.get()==1:
+                    print("Target confirmed, landing in close proximity.")
+                    angle=about_face(vehicle.heading)
+                    condition_yaw(180,1,angle)
+                    for i in range (10):
+                        send_local_ned_velocity(velocity/2,0,0)
+                        time.sleep(1)
+                    decelerate()
+                    vehicle.mode = VehicleMode('LAND')
+                    while vehicle.mode != 'LAND':
+                        print("Pathfinder waiting to engage landing mode, Mode: %s"%vehicle.mode)
+                        time.sleep(1)
+                    while vehicle.location.global_relative_frame.alt>0.1:
+                        print("Landing...")
+                        time.sleep(2)
+                    print("Pathfinder has landed at: %s"%vehicle.location.global_relative_frame)
+                    vehicle.close()
+                    sys.exit()
+                elif queue_confirm.get()==0:
+                    print("you have denied that this is a target")
+                    vehicle.mode=VehicleMode('GUIDED')
+                    while vehicle.mode != 'GUIDED':
+                        print(vehicle.mode)
+                        time.sleep(2)
+                print("continuing with mission")
 
     def sawtooth_sweep():
         global velocity
@@ -322,16 +322,16 @@ def pseudo_check_kill(queue):
 #############################################################3
 
 def pseudo_Neural_Network(queue):
-counter=0
-	while True:
-		print("TATM seeking targets")
-		#p1.start()
-		counter=counter+1
-		if counter>10:
-			print("pseudo TATM has detected target")
-			queue.put(1)
-			counter=0
-		time.sleep(5)
+    counter=0
+    while True:
+        print("TATM seeking targets")
+        #p1.start()
+        counter=counter+1
+        if counter>10:
+            print("pseudo TATM has detected target")
+            queue.put(1)
+            counter=0
+        time.sleep(5)
 
 import os
 import argparse
@@ -354,11 +354,11 @@ class VideoStream:
         # Read first frame from the stream
         (self.grabbed, self.frame) = self.stream.read()
 
-	# Variable to control when the camera is stopped
+    # Variable to control when the camera is stopped
         self.stopped = False
 
     def start(self):
-	# Start the thread that reads frames from the video stream
+    # Start the thread that reads frames from the video stream
         Thread(target=self.update,args=()).start()
         return self
 
@@ -375,11 +375,11 @@ class VideoStream:
             (self.grabbed, self.frame) = self.stream.read()
 
     def read(self):
-	# Return the most recent frame
+    # Return the most recent frame
         return self.frame
 
     def stop(self):
-	# Indicate that the camera and thread should be stopped
+    # Indicate that the camera and thread should be stopped
         self.stopped = True
 
 # Define and parse input arguments
